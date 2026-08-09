@@ -1,0 +1,35 @@
+name: Bug report
+description: Report reproducible incorrect behavior using fictional mail only
+title: "bug: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not attach a real mailbox or paste private email content. Build a fictional minimal fixture."
+  - type: input
+    id: version
+    attributes:
+      label: LoopLedger version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: source
+    attributes:
+      label: Source type
+      options: [MBOX, Maildir, EML file, EML directory]
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction
+      description: Include the exact command, exit code, and a fictional fixture or generator.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true

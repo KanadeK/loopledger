@@ -1,0 +1,25 @@
+name: Feature request
+description: Propose an offline, deterministic improvement
+title: "feature: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What open loop is currently missed or misclassified?
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Offline solution boundary
+      description: Explain how this can work without uploading mailbox data.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Fictional acceptance example
+    validations:
+      required: true

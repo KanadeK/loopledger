@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "ignored": [
+    "loop-replace-with-a-loop-id"
+  ],
+  "resolved": [
+    "<replace-with-a-message-id@example.com>"
+  ],
+  "snoozed_until": {
+    "loop-replace-with-another-loop-id": "2026-09-01T09:00:00Z"
+  }
+}
