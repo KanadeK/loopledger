@@ -11,8 +11,9 @@ import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_NAME = "KanadeK"
+EXPECTED_NAMES = frozenset({"KanadeK", "Vesper"})
 EXPECTED_EMAIL = "121669563+KanadeK@users.noreply.github.com"
+GITHUB_MERGE_COMMITTER = ("GitHub", "noreply@github.com")
 
 
 def _run(command: list[str], *, capture: bool = False) -> str:
@@ -71,11 +72,26 @@ def main() -> int:
     if f"## [{version}]" not in (ROOT / "CHANGELOG.md").read_text(encoding="utf-8"):
         raise RuntimeError("CHANGELOG has no heading for the package version")
 
-    history = _run(["git", "log", "--format=%an%x09%ae%x09%cn%x09%ce"], capture=True)
+    history = _run(["git", "log", "--format=%H%x09%P%x09%an%x09%ae%x09%cn%x09%ce"], capture=True)
     if not history.strip():
         raise RuntimeError("repository has no commits")
-    expected = f"{EXPECTED_NAME}\t{EXPECTED_EMAIL}\t{EXPECTED_NAME}\t{EXPECTED_EMAIL}"
-    invalid = [line for line in history.splitlines() if line != expected]
+    invalid: list[str] = []
+    for line in history.splitlines():
+        parts = line.split("\t")
+        if len(parts) != 6:
+            invalid.append(line)
+            continue
+        commit, parents, author_name, author_email, committer_name, committer_email = parts
+        author_is_account = author_name in EXPECTED_NAMES and author_email == EXPECTED_EMAIL
+        committer_is_account = (
+            committer_name in EXPECTED_NAMES and committer_email == EXPECTED_EMAIL
+        )
+        committer_is_github_merge = (
+            committer_name,
+            committer_email,
+        ) == GITHUB_MERGE_COMMITTER and len(parents.split()) > 1
+        if not author_is_account or not (committer_is_account or committer_is_github_merge):
+            invalid.append(commit)
     if invalid:
         raise RuntimeError(f"unexpected author or committer identity: {invalid}")
     bodies = _run(["git", "log", "--format=%B"], capture=True)
