@@ -3,7 +3,7 @@ message: "If LoopLedger helps your work, cite the software release."
 title: "LoopLedger"
 type: software
 version: 0.1.0
-date-released: 2026-08-08
+date-released: 2026-08-09
 license: MIT
 authors:
   - family-names: "KanadeK"
