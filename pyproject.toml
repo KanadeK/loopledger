@@ -1,0 +1,101 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loopledger"
+version = "0.1.0"
+description = "Find sent emails still awaiting a reply, offline from MBOX, Maildir, or EML exports."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "KanadeK", email = "121669563+KanadeK@users.noreply.github.com" },
+]
+keywords = [
+  "email",
+  "follow-up",
+  "gmail-takeout",
+  "local-first",
+  "mbox",
+  "productivity",
+  "privacy",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: End Users/Desktop",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Communications :: Email",
+  "Topic :: Office/Business",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2,<2",
+  "coverage[toml]>=7.6,<8",
+  "mypy>=1.13,<3",
+  "ruff>=0.8,<1",
+  "twine>=6,<7",
+]
+
+[project.scripts]
+loopledger = "loopledger.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/KanadeK/loopledger"
+Documentation = "https://kanadek.github.io/loopledger/"
+Issues = "https://github.com/KanadeK/loopledger/issues"
+Source = "https://github.com/KanadeK/loopledger"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+loopledger = ["py.typed"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["B", "C4", "E", "F", "I", "N", "PERF", "RUF", "SIM", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["RUF001", "S101"]
+"src/loopledger/reporting.py" = ["E501"]
+"src/loopledger/sample.py" = ["RUF001"]
+"src/loopledger/signals.py" = ["RUF001"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["loopledger"]
+mypy_path = "src"
+
+[tool.coverage.run]
+branch = true
+source = ["loopledger"]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = true
+exclude_also = [
+  "if TYPE_CHECKING:",
+  "if __name__ == .__main__.:",
+]
