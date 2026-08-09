@@ -19,5 +19,7 @@ All notable changes are documented here. This project follows
 
 - Install the declared setuptools and wheel backends with development dependencies so
   no-isolation release builds work in clean CI environments.
+- Recognize the account's GitHub display name and GitHub-authored merge commits without allowing
+  unrelated author emails or non-merge bot commits through the release audit.
 
 [0.1.0]: https://github.com/KanadeK/loopledger/releases/tag/v0.1.0
