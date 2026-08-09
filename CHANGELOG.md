@@ -15,4 +15,9 @@ All notable changes are documented here. This project follows
 - Deterministic fictional mailbox generator and 83-test cross-platform release gate.
 - Bilingual documentation, GitHub Pages demo workflow, CI, CodeQL, and release packaging.
 
+### Fixed
+
+- Install the declared setuptools and wheel backends with development dependencies so
+  no-isolation release builds work in clean CI environments.
+
 [0.1.0]: https://github.com/KanadeK/loopledger/releases/tag/v0.1.0
