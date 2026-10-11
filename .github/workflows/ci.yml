@@ -46,7 +46,7 @@ jobs:
         run: python scripts/verify.py
       - name: Upload coverage and release candidates
         if: matrix.os == 'ubuntu-latest' && matrix.python == '3.14'
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: loopledger-ci-evidence
           path: |
